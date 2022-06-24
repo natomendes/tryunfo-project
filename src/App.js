@@ -103,6 +103,14 @@ export default class App extends Component {
     }));
   };
 
+  deleteCard = (cardIndex, isTrunfo) => {
+    const { tryunfoDeck } = this.state;
+    this.setState({
+      tryunfoDeck: tryunfoDeck.filter((_, index) => index !== cardIndex),
+      hasTrunfo: isTrunfo,
+    });
+  }
+
   render() {
     const {
       cardName,
@@ -137,6 +145,7 @@ export default class App extends Component {
                   cardImage,
                   cardRare,
                   cardTrunfo,
+                  tryunfoDeck,
                 }
               }
             />
@@ -147,7 +156,12 @@ export default class App extends Component {
           <div className="cards">
             {
               tryunfoDeck.length !== 0
-              && tryunfoDeck.map((card) => <Card key={ card.cardName } { ...card } />)
+              && tryunfoDeck.map((card, index) => (<Card
+                key={ index }
+                cardIndex={ index }
+                { ...card }
+                deleteCard={ this.deleteCard }
+              />))
             }
           </div>
         </section>
