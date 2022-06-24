@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  font-family: Epilogue , sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+.App {
+  display: flex;
+  min-height: 100vh;
+}
+
+.App div {
+  flex: 1 40%;
+}
+
+.form-content {
+  align-items: center;
+  background-color: rgba(250, 250, 250, 1);
+  display: flex;
+  justify-content: center;
+}
+
+.card-content {
+  align-items: center;
+  background-color: rgba(2, 48, 49, 1);
+  display: flex;
+  justify-content: center;
+}
