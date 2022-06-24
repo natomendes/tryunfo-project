@@ -50,6 +50,8 @@ export default class Form extends Component {
               name="cardAttr1"
               data-testid="attr1-input"
               id="attr1"
+              min={ 0 }
+              max={ 90 }
               value={ cardAttr1 }
               onChange={ onInputChange }
             />

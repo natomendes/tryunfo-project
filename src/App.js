@@ -18,19 +18,49 @@ export default class App extends Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
     };
-    this.handleChange = ({ target }) => {
-      const value = target.type === 'checkbox' ? target.checked : target.value;
-      const { name } = target;
-
-      this.setState({
-        [name]: value,
-      });
-    };
-
-    this.onSaveButtonClick = () => {
-      console.log('salvei');
-    };
   }
+
+  onSaveButtonClick = () => {
+    console.log('salvei');
+  };
+
+  formValidation = () => {
+    const {
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardName,
+      cardDescription,
+      cardImage,
+      cardRare,
+    } = this.state;
+    const maxSumAttr = 211;
+    const maxAttr = 90;
+    const minAttr = 0;
+    if (cardAttr1 > maxAttr || cardAttr1 < minAttr
+        || cardAttr2 > maxAttr || cardAttr2 < minAttr
+        || cardAttr3 > maxAttr || cardAttr3 < minAttr) return true;
+    const sumAttr = (Number(cardAttr1)
+      + Number(cardAttr2)
+      + Number(cardAttr3)) < maxSumAttr;
+
+    return !(sumAttr
+      && cardDescription
+      && cardName
+      && cardImage
+      && cardRare);
+  }
+
+  handleChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
+
+    this.setState({
+      [name]: value,
+    }, () => this.setState({
+      isSaveButtonDisabled: this.formValidation(),
+    }));
+  };
 
   render() {
     const {
