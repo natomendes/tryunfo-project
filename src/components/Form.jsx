@@ -63,6 +63,8 @@ export default class Form extends Component {
               name="cardAttr2"
               data-testid="attr2-input"
               id="attr2"
+              min={ 0 }
+              max={ 90 }
               value={ cardAttr2 }
               onChange={ onInputChange }
             />
@@ -74,6 +76,8 @@ export default class Form extends Component {
               name="cardAttr3"
               data-testid="attr3-input"
               id="attr3"
+              min={ 0 }
+              max={ 90 }
               value={ cardAttr3 }
               onChange={ onInputChange }
             />
