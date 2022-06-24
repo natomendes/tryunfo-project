@@ -44,6 +44,7 @@ export default class App extends Component {
         cardRare,
         cardTrunfo,
       }],
+      hasTrunfo: cardTrunfo,
     }), () => this.setState({
       cardName: '',
       cardDescription: '',
