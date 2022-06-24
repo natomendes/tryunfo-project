@@ -21,6 +21,14 @@ export default class App extends Component {
     };
   }
 
+  deckHasTrunfo = () => {
+    const { tryunfoDeck } = this.state;
+    if (tryunfoDeck.length !== 0) {
+      return tryunfoDeck.some(({ cardTrunfo }) => cardTrunfo);
+    }
+    return false;
+  }
+
   onSaveButtonClick = (event) => {
     event.preventDefault();
     const {
@@ -44,7 +52,6 @@ export default class App extends Component {
         cardRare,
         cardTrunfo,
       }],
-      hasTrunfo: cardTrunfo,
     }), () => this.setState({
       cardName: '',
       cardDescription: '',
@@ -54,6 +61,7 @@ export default class App extends Component {
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
+      hasTrunfo: this.deckHasTrunfo(),
     }));
   };
 
@@ -105,33 +113,45 @@ export default class App extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      tryunfoDeck,
     } = this.state;
     return (
-      <section className="App">
-        <div className="form-content">
-          <Form
-            { ...this.state }
-            onInputChange={ this.handleChange }
-            onSaveButtonClick={ this.onSaveButtonClick }
-          />
-        </div>
-        <div className="card-content">
-          <Card
-            {
-              ...{
-                cardName,
-                cardDescription,
-                cardAttr1,
-                cardAttr2,
-                cardAttr3,
-                cardImage,
-                cardRare,
-                cardTrunfo,
+      <>
+        <section className="App">
+          <div className="form-content">
+            <Form
+              { ...this.state }
+              onInputChange={ this.handleChange }
+              onSaveButtonClick={ this.onSaveButtonClick }
+            />
+          </div>
+          <div className="card-content">
+            <Card
+              {
+                ...{
+                  cardName,
+                  cardDescription,
+                  cardAttr1,
+                  cardAttr2,
+                  cardAttr3,
+                  cardImage,
+                  cardRare,
+                  cardTrunfo,
+                }
               }
+            />
+          </div>
+        </section>
+        <section className="card-deck">
+          <h2>Todas as Cartas</h2>
+          <div className="cards">
+            {
+              tryunfoDeck.length !== 0
+              && tryunfoDeck.map((card) => <Card key={ card.cardName } { ...card } />)
             }
-          />
-        </div>
-      </section>
+          </div>
+        </section>
+      </>
     );
   }
 }
