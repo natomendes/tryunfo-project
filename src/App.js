@@ -22,6 +22,7 @@ export default class App extends Component {
       tryunfoDeck: [],
       nameFilter: '',
       rarityFilter: 'todas',
+      trunfoCheck: false,
     };
   }
 
@@ -116,19 +117,15 @@ export default class App extends Component {
   }
 
   renderCardsList = () => {
-    const { nameFilter, rarityFilter, tryunfoDeck } = this.state;
-    if (!nameFilter && rarityFilter === 'todas') return tryunfoDeck;
+    const { nameFilter, rarityFilter, tryunfoDeck, trunfoCheck } = this.state;
 
-    if (!nameFilter && rarityFilter !== 'todas') {
-      return tryunfoDeck.filter(({ cardRare }) => cardRare === rarityFilter);
-    }
+    if (trunfoCheck) return tryunfoDeck.filter(({ cardTrunfo }) => cardTrunfo);
 
-    if (nameFilter && rarityFilter === 'todas') {
-      return tryunfoDeck.filter(({ cardName }) => cardName.includes(nameFilter));
-    }
-
-    return tryunfoDeck.filter(({ cardName, cardRare }) => cardName.includes(nameFilter)
-      && cardRare === rarityFilter);
+    return tryunfoDeck
+      .filter(({ cardName }) => (
+        !nameFilter ? true : cardName.includes(nameFilter)))
+      .filter(({ cardRare }) => (
+        rarityFilter === 'todas' ? true : cardRare === rarityFilter));
   }
 
   render() {
@@ -144,6 +141,7 @@ export default class App extends Component {
       tryunfoDeck,
       nameFilter,
       rarityFilter,
+      trunfoCheck,
     } = this.state;
     return (
       <>
@@ -179,6 +177,7 @@ export default class App extends Component {
             <FilterForm
               nameFilter={ nameFilter }
               rarityFilter={ rarityFilter }
+              trunfoCheck={ trunfoCheck }
               onInputChange={ this.handleChange }
             />
           </div>
