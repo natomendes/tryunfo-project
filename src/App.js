@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './styles/App.css';
 import Card from './components/Card';
 import Form from './components/Form';
+// import mockCards from './mockCards';
+import FilterForm from './components/FilterForm';
 
 export default class App extends Component {
   constructor() {
@@ -18,6 +20,8 @@ export default class App extends Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       tryunfoDeck: [],
+      nameFilter: '',
+      rarityFilter: 'todas',
     };
   }
 
@@ -111,6 +115,22 @@ export default class App extends Component {
     });
   }
 
+  renderCardsList = () => {
+    const { nameFilter, rarityFilter, tryunfoDeck } = this.state;
+    if (!nameFilter && rarityFilter === 'todas') return tryunfoDeck;
+
+    if (!nameFilter && rarityFilter !== 'todas') {
+      return tryunfoDeck.filter(({ cardRare }) => cardRare === rarityFilter);
+    }
+
+    if (nameFilter && rarityFilter === 'todas') {
+      return tryunfoDeck.filter(({ cardName }) => cardName.includes(nameFilter));
+    }
+
+    return tryunfoDeck.filter(({ cardName, cardRare }) => cardName.includes(nameFilter)
+      && cardRare === rarityFilter);
+  }
+
   render() {
     const {
       cardName,
@@ -122,6 +142,8 @@ export default class App extends Component {
       cardRare,
       cardTrunfo,
       tryunfoDeck,
+      nameFilter,
+      rarityFilter,
     } = this.state;
     return (
       <>
@@ -152,11 +174,17 @@ export default class App extends Component {
           </div>
         </section>
         <section className="card-deck">
-          <h2>Todas as Cartas</h2>
+          <div className="filter-content">
+            <h2>Lista de Cartas</h2>
+            <FilterForm
+              nameFilter={ nameFilter }
+              rarityFilter={ rarityFilter }
+              onInputChange={ this.handleChange }
+            />
+          </div>
           <div className="cards">
             {
-              tryunfoDeck.length !== 0
-              && tryunfoDeck.map((card, index) => (<Card
+              this.renderCardsList().map((card, index) => (<Card
                 key={ index }
                 cardIndex={ index }
                 { ...card }

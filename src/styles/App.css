@@ -5,13 +5,6 @@
   padding: 0;
 }
 
-header {
-  align-items: center;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-}
-
 .App {
   display: flex;
   min-height: 100vh;
@@ -36,8 +29,19 @@ header {
 }
 
 .card-deck {
-  align-items: center;
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
+}
+
+.filter-content {
+  flex-basis: 30%;
+  padding: 50px;
+}
+
+.cards {
+  display: flex;
+  flex: 1 60%;
+  flex-wrap: wrap;
+  gap: 50px;
+  padding: 50px;
 }
