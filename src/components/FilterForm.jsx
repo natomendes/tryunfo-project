@@ -1,5 +1,21 @@
+import {
+  TextField,
+  MenuItem,
+  FormGroup,
+  FormControlLabel,
+  Checkbox } from '@mui/material';
+import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green, red } from '@mui/material/colors';
+
+const theme = createTheme({
+  palette: {
+    primary: green,
+    secondary: red,
+  },
+});
 
 export default class FilterForm extends Component {
   constructor() {
@@ -26,42 +42,68 @@ export default class FilterForm extends Component {
       trunfoCheck,
     } = this.props;
     return (
-      <form className="filter-options">
-        <h4>Filtro de busca</h4>
-        <input
-          type="text"
-          name="nameFilter"
-          data-testid="name-filter"
-          placeholder="Nome da Carta"
-          value={ nameFilter }
-          onChange={ onInputChange }
-          disabled={ isDisabled }
-        />
-        <select
-          name="rarityFilter"
-          value={ rarityFilter }
-          id="rarityFilter"
-          data-testid="rare-filter"
-          onChange={ onInputChange }
-          disabled={ isDisabled }
+      <ThemeProvider theme={ theme }>
+        <Box
+          component="form"
+          sx={ {
+            display: 'flex',
+            p: 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 2,
+            background: '#CCC',
+            width: '100%',
+            boxShadow: 8,
+            borderRadius: 3,
+            color: 'green',
+          } }
         >
-          <option value="todas">Todas</option>
-          <option value="normal">Normal</option>
-          <option value="raro">Raro</option>
-          <option value="muito raro">Muito raro</option>
-        </select>
-        <label htmlFor="trunfoCheck">
-          <input
-            type="checkbox"
-            id="trunfoCheck"
-            checked={ trunfoCheck }
-            name="trunfoCheck"
-            onChange={ this.handleCheckbox }
-            data-testid="trunfo-filter"
+          <Box
+            component="p"
+          >
+            Filtro de busca
+          </Box>
+          <TextField
+            label="Nome da carta"
+            name="nameFilter"
+            data-testid="name-filter"
+            value={ nameFilter }
+            onChange={ onInputChange }
+            disabled={ isDisabled }
           />
-          <span>Super Trybe Trunfo</span>
-        </label>
-      </form>);
+          <TextField
+            select
+            name="rarityFilter"
+            value={ rarityFilter }
+            id="rarityFilter"
+            data-testid="rare-filter"
+            onChange={ onInputChange }
+            disabled={ isDisabled }
+            label="Raridade"
+          >
+            <MenuItem value="todas">Todas</MenuItem>
+            <MenuItem value="normal">Normal</MenuItem>
+            <MenuItem value="raro">Raro</MenuItem>
+            <MenuItem value="muito raro">Muito Raro</MenuItem>
+
+          </TextField>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="trunfoCheck"
+                  checked={ trunfoCheck }
+                  name="trunfoCheck"
+                  onChange={ this.handleCheckbox }
+                  data-testid="trunfo-filter"
+                />
+              }
+              label="Super Trybe Trunfo"
+            />
+          </FormGroup>
+        </Box>
+      </ThemeProvider>
+    );
   }
 }
 

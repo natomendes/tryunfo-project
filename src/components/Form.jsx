@@ -1,6 +1,22 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import '../styles/Form.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green, red } from '@mui/material/colors';
+import {
+  TextField,
+  MenuItem,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Button } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: green,
+    secondary: red,
+  },
+});
 
 export default class Form extends Component {
   render() {
@@ -21,121 +37,128 @@ export default class Form extends Component {
     return (
       <form className="Form">
         <h1>Adicionar Nova Carta</h1>
-        <label htmlFor="name">
-          <span>Nome</span>
-          <input
-            type="text"
-            data-testid="name-input"
-            id="name"
+        <ThemeProvider theme={ theme }>
+          <TextField
+            id="nome"
+            label="Nome"
             name="cardName"
+            data-testid="name-input"
             value={ cardName }
             onChange={ onInputChange }
+            size="small"
           />
-        </label>
-        <label htmlFor="description">
-          <span>Descrição</span>
-          <textarea
+          <TextField
             id="description"
+            multiline
+            maxRows={ 2 }
+            label="Descrição"
             name="cardDescription"
             data-testid="description-input"
             value={ cardDescription }
             onChange={ onInputChange }
           />
-        </label>
-        <fieldset className="card-attributes">
-          <label htmlFor="attr1">
-            <span>Attr1</span>
-            <input
-              type="number"
+
+          <fieldset className="card-attributes">
+            <TextField
               name="cardAttr1"
               data-testid="attr1-input"
-              id="attr1"
-              min={ 0 }
-              max={ 90 }
               value={ cardAttr1 }
               onChange={ onInputChange }
-            />
-          </label>
-          <label htmlFor="attr2">
-            <span>Attr2</span>
-            <input
+              label="Attr1"
               type="number"
+              fullWidth
+              size="small"
+              inputProps={ {
+                max: 90,
+                min: 0,
+              } }
+            />
+            <TextField
               name="cardAttr2"
               data-testid="attr2-input"
-              id="attr2"
-              min={ 0 }
-              max={ 90 }
               value={ cardAttr2 }
               onChange={ onInputChange }
-            />
-          </label>
-          <label htmlFor="attr3">
-            <span>Attr3</span>
-            <input
+              label="Attr2"
               type="number"
+              fullWidth
+              size="small"
+              inputProps={ {
+                max: 90,
+                min: 0,
+              } }
+            />
+            <TextField
               name="cardAttr3"
               data-testid="attr3-input"
-              id="attr3"
-              min={ 0 }
-              max={ 90 }
               value={ cardAttr3 }
               onChange={ onInputChange }
+              label="Attr3"
+              type="number"
+              fullWidth
+              size="small"
+              inputProps={ {
+                max: 90,
+                min: 0,
+              } }
             />
-          </label>
-        </fieldset>
-        <label htmlFor="image-input" className="img-label">
-          <span>Imagem</span>
-          <input
-            type="text"
+
+          </fieldset>
+          <TextField
             name="cardImage"
+            label="Imagem"
             data-testid="image-input"
-            id="image-input"
             value={ cardImage }
             onChange={ onInputChange }
+            size="small"
           />
-        </label>
-        <label htmlFor="rare-input">
-          <span>Raridade</span>
-          <select
-            value={ cardRare }
-            name="cardRare"
+          <TextField
+            select
             id="rare-input"
+            label="Raridade"
+            name="cardRare"
+            value={ cardRare }
             onChange={ onInputChange }
             data-testid="rare-input"
+            size="small"
           >
-            <option value="normal">Normal</option>
-            <option value="raro">Raro</option>
-            <option value="muito raro">Muito Raro</option>
-          </select>
-        </label>
-        {
-          !hasTrunfo
-            ? (
-              <label
-                htmlFor="trunfo-input"
-                className="trunfo-checkbox"
-              >
-                <input
-                  type="checkbox"
-                  name="cardTrunfo"
-                  data-testid="trunfo-input"
-                  id="trunfo-input"
-                  checked={ cardTrunfo }
-                  onChange={ onInputChange }
-                />
-                <span>Super Trybe Trunfo</span>
-              </label>)
-            : <span>Você já tem um Super Trunfo em seu baralho</span>
-        }
-
-        <button
-          type="submit"
-          data-testid="save-button"
-          disabled={ isSaveButtonDisabled }
-          onClick={ onSaveButtonClick }
-        >
-          Salvar
-        </button>
+            <MenuItem value="normal">Normal</MenuItem>
+            <MenuItem value="raro">Raro</MenuItem>
+            <MenuItem value="muito raro">Muito Raro</MenuItem>
+          </TextField>
+          {
+            !hasTrunfo
+              ? (
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="cardTrunfo"
+                        data-testid="trunfo-input"
+                        id="trunfo-input"
+                        checked={ cardTrunfo }
+                        onChange={ onInputChange }
+                      />
+                    }
+                    label="Super Trybe Trunfo"
+                  />
+                </FormGroup>
+              )
+              : (
+                <span
+                  className="hasTrunfo"
+                >
+                  Você já tem um Super Trunfo em seu baralho
+                </span>)
+          }
+          <Button
+            variant="contained"
+            data-testid="save-button"
+            disabled={ isSaveButtonDisabled }
+            onClick={ onSaveButtonClick }
+          >
+            Salvar
+          </Button>
+        </ThemeProvider>
       </form>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './styles/App.css';
 import Card from './components/Card';
 import Form from './components/Form';
-// import mockCards from './mockCards';
+import mockCards from './mockCards';
 import FilterForm from './components/FilterForm';
 
 export default class App extends Component {
@@ -17,9 +17,9 @@ export default class App extends Component {
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
-      hasTrunfo: false,
+      hasTrunfo: true,
       isSaveButtonDisabled: true,
-      tryunfoDeck: [],
+      tryunfoDeck: mockCards,
       nameFilter: '',
       rarityFilter: 'todas',
       trunfoCheck: false,
@@ -67,6 +67,7 @@ export default class App extends Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: this.deckHasTrunfo(),
+      isSaveButtonDisabled: true,
     }));
   };
 
@@ -173,7 +174,6 @@ export default class App extends Component {
         </section>
         <section className="card-deck">
           <div className="filter-content">
-            <h2>Lista de Cartas</h2>
             <FilterForm
               nameFilter={ nameFilter }
               rarityFilter={ rarityFilter }
