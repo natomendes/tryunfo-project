@@ -1,16 +1,13 @@
-# 🚧 README em construção 🚧
+# Tryunfo Project
+Projeto desenvolvido para o curso de desenvolvimento web da [Trybe](https://www.betrybe.com/)
 
-<!-- Olá, Tryber!
+Esse projeto foi desenvolvido com o intuito de fixar os conhecimentos aprendidos sobre React, componentes de classes e métodos de ciclo de vida.
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+A aplicação simula o famoso jogo Super Trunfo, dando a possibilidade do usuário criar seus próprios baralhos, customizando o tema de acordo com a sua preferência.
 
-É essencial que você preencha esse documento por conta própria, ok?
+---
+Project developed for the web developer course at [Trybe](https://www.betrybe.com/)
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+This project was developed to fixate the knowlegde learned about React, class components and lyfe cycle methods.
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
-
--->
+The Application simulates a famous brazilian card game called Super Trunfo, letting the user create it's own personalized decks, choosing the theme accordingly with his preferences.
